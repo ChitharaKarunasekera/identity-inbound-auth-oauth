@@ -29,7 +29,7 @@ public class DataRecordWriter {
         return null;
     }
 
-    public static void writeObject(String reqUUID, String parAuthRequest, long reqMade) throws Exception {
+    public static void writeObject(String reqUUID, byte[] parAuthRequest, long reqMade) throws Exception {
 
         ParDAOFactory.getInstance().getParAuthMgtDAO().persistParRequest(reqUUID, parAuthRequest, reqMade);
     }

@@ -18,7 +18,7 @@ public interface ParMgtDAO {
      *
      * @param oauthRequest Data object that accumulates  par request data.
      */
-    void persistParRequest(String reqUUID, String oauthRequest, long reqMadeAt) throws ParCoreException, SQLException;
+    void persistParRequest(String reqUUID, byte[] oauthRequest, long reqMadeAt) throws ParCoreException, SQLException;
 
     /**
      * Returns ParAuthRequestObject identified by unique UUID of requestUri.

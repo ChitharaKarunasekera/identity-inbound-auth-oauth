@@ -8,9 +8,9 @@ import org.wso2.carbon.identity.application.authentication.framework.exception.S
 import org.wso2.carbon.identity.application.authentication.framework.store.JavaSessionSerializer;
 import org.wso2.carbon.identity.application.authentication.framework.store.SessionSerializer;
 
-public class ParAuthRequestSerializer implements SessionSerializer {
-    @Override
-    public InputStream serializeSessionObject(Object value) throws SessionSerializerException {
+public class ParAuthRequestSerializer {
+
+    public byte[] serializeSessionObject(Object value) throws SessionSerializerException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
             ObjectOutputStream oos = new ObjectOutputStream(baos);
@@ -20,10 +20,13 @@ public class ParAuthRequestSerializer implements SessionSerializer {
         } catch (IOException e) {
             throw new SessionSerializerException("Error while serializing the session object", e);
         }
-        return new ByteArrayInputStream(baos.toByteArray());
+
+        byte[] bytes = baos.toByteArray();
+        return bytes;
+        //return new ByteArrayInputStream(baos.toByteArray());
     }
 
-    @Override
+
     public Object deSerializeSessionObject(InputStream inputStream) throws SessionSerializerException {
         try {
             ObjectInputStream ois = new ObjectInputStream(inputStream);

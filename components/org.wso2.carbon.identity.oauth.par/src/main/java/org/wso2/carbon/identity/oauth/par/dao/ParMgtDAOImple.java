@@ -22,7 +22,7 @@ public class ParMgtDAOImple implements ParMgtDAO{
     private static final Log log = LogFactory.getLog(ParMgtDAOImple.class);
 
     @Override
-    public void persistParRequest(String reqUUID, String oauthRequest, long reqMadeAt) throws ParCoreException {
+    public void persistParRequest(String reqUUID, byte[] oauthRequest, long reqMadeAt) throws ParCoreException {
 
         try (Connection connection = IdentityDatabaseUtil.getDBConnection(true)){
 
@@ -30,7 +30,7 @@ public class ParMgtDAOImple implements ParMgtDAO{
                     ParSQLQueries.STORE_PAR_REQUEST)) {
 
                 prepStmt.setString(1, reqUUID.substring(reqUUID.length() - 36));
-                prepStmt.setString(2, oauthRequest);
+                prepStmt.setBytes(2, oauthRequest);
                 prepStmt.setLong(3, reqMadeAt);
                 prepStmt.execute();
             } catch (SQLException e) {

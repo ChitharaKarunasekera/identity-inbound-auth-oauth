@@ -43,6 +43,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -104,15 +105,21 @@ public class OAuth2ParEndpoint {
         //String uuid = parAuthCodeResponse.getRequestUri().substring(reqUUID.length() - 36);
 
         // Make parOAuthRequest serializable
-        //SerializableObject serializableParOAuthRequest = new SerializableObject(parOAuthRequest);
+        SerializableObject serializableParOAuthRequest = new SerializableObject(parOAuthRequest);
 
         // Serialize serializableParOAuthRequest (JOS)
-        //ParAuthRequestSerializer serializer = new ParAuthRequestSerializer();
-        //Object obj = serializer.serializeSessionObject(serializableParOAuthRequest);
+        ParAuthRequestSerializer serializer = new ParAuthRequestSerializer();
+
+        //byte[] obj = serializer.serializeSessionObject(serializableParOAuthRequest);
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream out = new ObjectOutputStream(bos);
+        out.writeObject(serializableParOAuthRequest);
+        byte[] bytes = bos.toByteArray();
 
         // Serialize parOAuthRequest to JSON String
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(parOAuthRequest);
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        String json = objectMapper.writeValueAsString(parOAuthRequest);
 
 
 //        String jsonReq = toJSONString(request);
@@ -120,7 +127,7 @@ public class OAuth2ParEndpoint {
 //        String jsonReq = objectMapper.writeValueAsString(request);
 
         // Store values to Database
-        DataRecordWriter.writeObject(parAuthCodeResponse.getRequestUri(), json, requestMadeAt);
+        DataRecordWriter.writeObject(parAuthCodeResponse.getRequestUri(), bytes, requestMadeAt);
 
         // build serialized object
 //        DataRecordWriter.writeObject(parAuthCodeResponse.getRequestUri(), serializableParAuthRequest, requestMadeAt);
