@@ -21,6 +21,7 @@ package org.wso2.carbon.identity.oauth.endpoint.par;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.thoughtworks.xstream.XStream;
 import net.minidev.json.JSONValue;
 import netscape.javascript.JSObject;
 import org.apache.cxf.interceptor.InInterceptors;
@@ -112,10 +113,13 @@ public class OAuth2ParEndpoint {
 
         //byte[] obj = serializer.serializeSessionObject(serializableParOAuthRequest);
 
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutputStream out = new ObjectOutputStream(bos);
-        out.writeObject(serializableParOAuthRequest);
-        byte[] bytes = bos.toByteArray();
+//        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//        ObjectOutputStream out = new ObjectOutputStream(bos);
+//        out.writeObject(serializableParOAuthRequest);
+//        byte[] bytes = bos.toByteArray();
+
+        XStream xstream = new XStream();
+        String xml = xstream.toXML(serializableParOAuthRequest);
 
         // Serialize parOAuthRequest to JSON String
 //        ObjectMapper objectMapper = new ObjectMapper();
@@ -127,7 +131,7 @@ public class OAuth2ParEndpoint {
 //        String jsonReq = objectMapper.writeValueAsString(request);
 
         // Store values to Database
-        DataRecordWriter.writeObject(parAuthCodeResponse.getRequestUri(), bytes, requestMadeAt);
+        //DataRecordWriter.writeObject(parAuthCodeResponse.getRequestUri(), xml, requestMadeAt);
 
         // build serialized object
 //        DataRecordWriter.writeObject(parAuthCodeResponse.getRequestUri(), serializableParAuthRequest, requestMadeAt);
