@@ -113,28 +113,17 @@ public class OAuth2ParEndpoint {
 
         //byte[] obj = serializer.serializeSessionObject(serializableParOAuthRequest);
 
-//        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-//        ObjectOutputStream out = new ObjectOutputStream(bos);
-//        out.writeObject(serializableParOAuthRequest);
-//        byte[] bytes = bos.toByteArray();
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream out = new ObjectOutputStream(bos);
+        out.writeObject(serializableParOAuthRequest);
+        byte[] bytes = bos.toByteArray();
 
-        XStream xstream = new XStream();
-        String xml = xstream.toXML(serializableParOAuthRequest);
+//        XStream xstream = new XStream();
+//        String xml = xstream.toXML(serializableParOAuthRequest);
 
-        // Serialize parOAuthRequest to JSON String
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        String json = objectMapper.writeValueAsString(parOAuthRequest);
-
-
-//        String jsonReq = toJSONString(request);
-//        objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-//        String jsonReq = objectMapper.writeValueAsString(request);
 
         // Store values to Database
-        //DataRecordWriter.writeObject(parAuthCodeResponse.getRequestUri(), xml, requestMadeAt);
-
-        // build serialized object
-//        DataRecordWriter.writeObject(parAuthCodeResponse.getRequestUri(), serializableParAuthRequest, requestMadeAt);
+        DataRecordWriter.writeObject(parAuthCodeResponse.getRequestUri(), bytes, requestMadeAt);
 
         return resp;
     }
