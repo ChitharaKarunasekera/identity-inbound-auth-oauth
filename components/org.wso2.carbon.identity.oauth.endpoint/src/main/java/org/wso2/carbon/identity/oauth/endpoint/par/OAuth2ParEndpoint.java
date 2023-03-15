@@ -79,9 +79,6 @@ public class OAuth2ParEndpoint {
         DataRecordWriter dataRecordWriter = new DataRecordWriter();
 
 
-        //build ParReqyestObject.oAuthrequest
-//        oAuthAuthzRequest = new ParRequestBuilder(request);
-
 
         if (!oAuth2ClientValidationResponseDTO.isValidClient()) {
 
@@ -103,12 +100,6 @@ public class OAuth2ParEndpoint {
         ParRequestData.addOauthRequest(parAuthCodeResponse.getRequestUri(), parOAuthRequest);
         //String uuid = parAuthCodeResponse.getRequestUri().substring(reqUUID.length() - 36);
 
-        // Make parOAuthRequest serializable
-        //SerializableObject serializableParOAuthRequest = new SerializableObject(parOAuthRequest);
-
-        // Serialize serializableParOAuthRequest (JOS)
-        //ParAuthRequestSerializer serializer = new ParAuthRequestSerializer();
-        //Object obj = serializer.serializeSessionObject(serializableParOAuthRequest);
 
         // Serialize parOAuthRequest to JSON String
         ObjectMapper objectMapper = new ObjectMapper();
@@ -121,9 +112,6 @@ public class OAuth2ParEndpoint {
 
         // Store values to Database
         DataRecordWriter.writeObject(parAuthCodeResponse.getRequestUri(), json, requestMadeAt);
-
-        // build serialized object
-//        DataRecordWriter.writeObject(parAuthCodeResponse.getRequestUri(), serializableParAuthRequest, requestMadeAt);
 
         return resp;
     }

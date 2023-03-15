@@ -1554,9 +1554,6 @@ public class OAuth2AuthzEndpoint {
         OAuthAuthzRequest oauthRequest;
 
         if (oAuthMessage.getRequest_uri() != null) {
-            //get requestUri, and its related OauthRequest
-            //oauthRequest = ParRequestData.getOauthRequests().get(oAuthMessage.getRequest_uri()); //get requestUri, and its related request
-            //oauthRequest = Objects.requireNonNull(DataRecordWriter.readObject(oAuthMessage.getRequest_uri())).getParAuthRequest();
             String uuid = oAuthMessage.getRequest_uri().substring(oAuthMessage.getRequest_uri().length() - 36);
             oauthRequest = DataRecordWriter.readRecord(uuid).getParAuthRequest();
         } else {
