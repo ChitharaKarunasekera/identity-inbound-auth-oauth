@@ -98,7 +98,7 @@ public class OAuth2ParEndpoint {
         //String uuid
 
         Response resp = getAuthResponse(response, parAuthCodeResponse);
-        ParRequestData.addRequest(parAuthCodeResponse.getRequestUri(), request.getParameterMap());
+        ParRequestData.addRequest(parAuthCodeResponse.getRequestUri(), (Map<String, String>) request.getParameterMap());
         ParRequestData.addTime(parAuthCodeResponse.getRequestUri(), requestMadeAt);
         ParRequestData.addOauthRequest(parAuthCodeResponse.getRequestUri(), parOAuthRequest);
         //String uuid = parAuthCodeResponse.getRequestUri().substring(reqUUID.length() - 36);
