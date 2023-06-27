@@ -50,7 +50,7 @@ public class OAuthParRequestWrapper extends HttpServletRequestWrapper {
 
         //get only uuid from request_uri
         String uuid = request.getParameter(OAuthConstants.OAuth20Params.REQUEST_URI)
-                .replaceFirst(ParConstants.REQUEST_URI_HEAD, "");
+                .replaceFirst(ParConstants.REQUEST_URI_PREFIX, "");
 
         try {
             if (parAuthService == null) {
@@ -61,7 +61,7 @@ public class OAuthParRequestWrapper extends HttpServletRequestWrapper {
                     request.getParameter(OAuthConstants.OAuth20Params.CLIENT_ID));
             params.put(OAuthConstants.ALLOW_REQUEST_URI_AND_REQUEST_OBJECT_IN_REQUEST, "true");
         } catch (ParCoreException e) {
-            throw new ParAuthFailureException(e.getMessage());
+            throw new ParAuthFailureException("Error occurred while retrieving params from PAR request");
         }
     }
 
